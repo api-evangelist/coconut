@@ -1,0 +1,16 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1",
+        "title": "HeyWatch Video Encoding API",
+        "description": "Outsource video encoding with a few lines of code and focus on building great apps.",
+        "termsOfService": "http:\/\/www.heywatchencoding.com\/tos"
+    },
+    "servers": [
+        "httpsheywatch.com\/"
+    ],
+    "paths": [],
+    "components": {
+        "schemas": []
+    }
+}
