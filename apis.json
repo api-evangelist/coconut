@@ -1,0 +1,76 @@
+{
+    "name": "Coconut",
+    "description": "Powerful and cost-effective video encoding platform - 50% cheaper than AWS and Zencoder - They trust us: Adobe, Tumblr, CloudApp, Classdojo, Sony...",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/1891-coconut.jpg",
+    "tags": [
+        "api provider",
+        "cloud",
+        "encoding",
+        "have api",
+        "networks",
+        "streaming"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/coconut\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "HeyWatch Video Encoding API",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/1891-coconut.jpg",
+            "humanURL": "http:\/\/coconut.co\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/heywatch-video-encoding-api-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Base",
+            "url": "https:\/\/coconut.co"
+        },
+        {
+            "type": "Blog",
+            "url": "http:\/\/coconut.co\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/www.heywatchencoding.com\/blog.atom"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/coco-s-coconut-company"
+        },
+        {
+            "type": "Developers",
+            "url": "http:\/\/coconut.co\/docs\/"
+        },
+        {
+            "type": "Email",
+            "url": "support@coconut.co"
+        },
+        {
+            "type": "Pricing",
+            "url": "http:\/\/coconut.co\/pricing"
+        },
+        {
+            "type": "Registration",
+            "url": "https:\/\/app.coconut.co\/signup"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/opencoconut"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/coconut.co\/"
+        }
+    ]
+}
