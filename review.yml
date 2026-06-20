@@ -1,0 +1,93 @@
+aid: coconut
+name: Coconut
+review:
+  question: Does Coconut expose a documented public WebSocket API, and is its webhook notification surface modelable as AsyncAPI?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Coconut's job processing is asynchronous and completion is delivered via
+    HTTP webhook callbacks (the per-job notification object), not via a
+    WebSocket or SSE stream. Per current API Evangelist scope, AsyncAPI is
+    authored for SSE/WebSocket streaming transports; one-way HTTP webhook
+    callbacks are documented here as a push/event surface but no AsyncAPI
+    document was generated. If webhook-as-async modeling is brought in scope,
+    the five documented events (input.transferred, output.completed,
+    output.failed, job.completed, job.failed) would be the channels.
+findings:
+  summary: |
+    Coconut is a cloud video and audio encoding/transcoding service. Its
+    public API v2 is REST over HTTPS under https://api.coconut.co/v2 with HTTP
+    Basic authentication (API key as username, blank password). Jobs are fully
+    asynchronous: a single POST /jobs request defines input, storage, outputs,
+    notification, and settings, and Coconut reports progress and completion by
+    POSTing JSON event payloads to a caller-supplied webhook URL. No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is
+    documented, and no Server-Sent Events stream is documented. The async
+    surface is webhook callbacks plus a pollable GET /jobs/{id}.
+
+    Disambiguation: this profile covers the video/audio encoding API operated
+    by id3as/Coconut at coconut.co and docs.coconut.co (GitHub org
+    opencoconut). It is unrelated to the separately branded "Coconut" UK
+    banking/accounting product for sole traders, which shares the name but is a
+    different company and product with no relation to this encoding API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.coconut.co/v2
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: One-way HTTP POST callbacks to a caller-supplied URL configured per job via the notification object. Not WebSocket.
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming endpoint is documented.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Coconut's API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.coconut.co/v2/jobs
+    - GET  https://api.coconut.co/v2/jobs/{jobId}
+    - GET  https://api.coconut.co/v2/metadata/jobs/{jobId}
+    - GET  https://api.coconut.co/v2/metadata/jobs/{jobId}/{key}
+  webhookEvents:
+    - input.transferred
+    - output.completed
+    - output.failed
+    - job.completed
+    - job.failed
+  disambiguation:
+    inScope:
+      name: Coconut (video/audio encoding API)
+      vendor: id3as / Coconut
+      homepage: https://www.coconut.co
+      docs: https://docs.coconut.co
+      github: https://github.com/opencoconut
+    outOfScope:
+      - name: Coconut (UK banking/accounting for sole traders)
+        note: Different company and product sharing the Coconut name; not the encoding API profiled here.
+sources:
+  - url: https://docs.coconut.co/jobs/api
+    type: APIReference
+    note: Documents POST /v2/jobs and GET /v2/jobs/:jobid with Basic auth.
+  - url: https://docs.coconut.co/metadata/api
+    type: APIReference
+    note: Documents GET /v2/metadata/jobs/:jobid and /:jobid/:key.
+  - url: https://docs.coconut.co/jobs/notification
+    type: Documentation
+    note: Documents webhook notification config (type http, url, events, metadata) and the five event types.
+  - url: https://www.coconut.co/pricing
+    type: Documentation
+    note: Per-output-minute pricing by resolution tier; Test Plan free tier.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming surface exists. The asynchronous surface is
+    one-way HTTP webhook callbacks, which are documented here as a push/event
+    surface but not modeled as AsyncAPI under current scope. The Webhooks API
+    is represented as a sub-API in apis.yml.

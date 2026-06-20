@@ -1,0 +1,59 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Coconut
+providerId: coconut
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Video
+- Audio
+- Encoding
+- Transcoding
+- Media
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Coconut does not publish explicit numeric request-per-second or
+  request-per-minute API rate limits in its public documentation. Throughput
+  is instead governed by plan-level processing concurrency: the free Test Plan
+  processes jobs sequentially (one at a time) and limits media to one minute,
+  while paid usage runs jobs in parallel. The ultrafast setting further
+  parallelizes a single job by splitting the input into chunks. Specific
+  per-account concurrency ceilings are not reconciled in this artifact.
+notes: >-
+  Verify any account- or plan-level concurrency limits with Coconut support on
+  reconciliation. Clients should handle webhook-driven asynchronous completion
+  rather than polling tightly.
+sources:
+- https://docs.coconut.co/jobs/api
+- https://www.coconut.co/pricing
+- https://docs.coconut.co/jobs/settings
+responseCodes:
+  throttled: 429
+limits:
+- name: Test Plan Concurrency
+  scope: account
+  metric: jobs
+  limit: 1 (sequential)
+  notes: Free Test Plan processes jobs one at a time; input limited to one minute.
+- name: Paid Plan Concurrency
+  scope: account
+  metric: jobs
+  limit: see provider documentation
+  notes: Paid usage processes jobs in parallel; specific ceiling not publicly documented.
+- name: Ultrafast Chunking
+  scope: job
+  metric: chunks
+  limit: applies to inputs longer than one minute
+  notes: A single job is split into chunks for parallel transcoding when settings.ultrafast is enabled.
+policies:
+- name: Asynchronous Processing
+  description: Jobs run asynchronously; rely on webhook notifications for completion instead of tight polling.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

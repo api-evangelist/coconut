@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coconut API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{apiKey}}",
+      "password": ""
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coconut.co/v2/jobs",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"input\": {\n    \"url\": \"https://example.com/source.mp4\"\n  },\n  \"storage\": {\n    \"service\": \"s3\",\n    \"region\": \"us-east-1\",\n    \"bucket\": \"my-bucket\",\n    \"credentials\": {\n      \"access_key_id\": \"{{awsAccessKeyId}}\",\n      \"secret_access_key\": \"{{awsSecretAccessKey}}\"\n    }\n  },\n  \"outputs\": {\n    \"mp4:720p\": { \"path\": \"/transcoded/video_720p.mp4\" },\n    \"jpg:300x\": { \"path\": \"/thumbs/thumb_#num#.jpg\", \"number\": 5 }\n  },\n  \"notification\": {\n    \"type\": \"http\",\n    \"url\": \"https://example.com/webhook\",\n    \"events\": true,\n    \"metadata\": true\n  },\n  \"settings\": {\n    \"ultrafast\": false\n  }\n}"
+            }
+          },
+          "docs": "Submit a new asynchronous encoding job defining input, storage, outputs, notification, and settings."
+        },
+        {
+          "info": {
+            "name": "Retrieve a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coconut.co/v2/jobs/:jobId"
+          },
+          "docs": "Retrieve a single job by id including status, progress, input status, and output URLs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all metadata for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coconut.co/v2/metadata/jobs/:jobId"
+          },
+          "docs": "Retrieve streams and format metadata for the input source and all outputs of a job."
+        },
+        {
+          "info": {
+            "name": "Retrieve metadata for a specific key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coconut.co/v2/metadata/jobs/:jobId/:key"
+          },
+          "docs": "Retrieve metadata for a single source or output key (for example mp4:720p)."
+        }
+      ]
+    }
+  ]
+}

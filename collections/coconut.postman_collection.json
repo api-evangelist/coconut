@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "Coconut API",
+    "description": "Coconut cloud video and audio encoding/transcoding API v2. HTTP Basic auth with the API key as username and a blank password.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "{{apiKey}}", "type": "string" },
+      { "key": "password", "value": "", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.coconut.co/v2" },
+    { "key": "apiKey", "value": "" },
+    { "key": "jobId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Create a job",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/jobs",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": {\n    \"url\": \"https://example.com/source.mp4\"\n  },\n  \"storage\": {\n    \"service\": \"s3\",\n    \"region\": \"us-east-1\",\n    \"bucket\": \"my-bucket\",\n    \"credentials\": {\n      \"access_key_id\": \"{{awsAccessKeyId}}\",\n      \"secret_access_key\": \"{{awsSecretAccessKey}}\"\n    }\n  },\n  \"outputs\": {\n    \"mp4:720p\": { \"path\": \"/transcoded/video_720p.mp4\" },\n    \"jpg:300x\": { \"path\": \"/thumbs/thumb_#num#.jpg\", \"number\": 5 }\n  },\n  \"notification\": {\n    \"type\": \"http\",\n    \"url\": \"https://example.com/webhook\",\n    \"events\": true,\n    \"metadata\": true\n  },\n  \"settings\": {\n    \"ultrafast\": false\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Submit a new asynchronous encoding job defining input, storage, outputs, notification, and settings."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve a job",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/jobs/{{jobId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "{{jobId}}"]
+            },
+            "description": "Retrieve a single job by id including status, progress, input status, and output URLs."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Metadata",
+      "item": [
+        {
+          "name": "Retrieve all metadata for a job",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/metadata/jobs/{{jobId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["metadata", "jobs", "{{jobId}}"]
+            },
+            "description": "Retrieve streams and format metadata for the input source and all outputs of a job."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve metadata for a specific key",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/metadata/jobs/{{jobId}}/:key",
+              "host": ["{{baseUrl}}"],
+              "path": ["metadata", "jobs", "{{jobId}}", ":key"],
+              "variable": [
+                { "key": "key", "value": "mp4:720p", "description": "Source or output key name." }
+              ]
+            },
+            "description": "Retrieve metadata for a single source or output key."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

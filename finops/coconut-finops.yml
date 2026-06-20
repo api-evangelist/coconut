@@ -1,0 +1,97 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Coconut
+providerId: coconut
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Video
+- Audio
+- Encoding
+- Transcoding
+- Media
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Coconut spend. Coconut bills usage-based, per-output-minute
+  rates that vary by output resolution tier (Audio $0.00325, SD $0.00750, HD
+  $0.01500, UHD $0.03000 per output minute). Output minutes equal the duration
+  of each output file summed across all formats produced from a source, so
+  transcoding one source into multiple renditions multiplies billable minutes.
+  Failed jobs, thumbnail generation, and API calls are not billed. Billing is
+  monthly for the prior month's volume with no minimums or commitments.
+notes: >-
+  Per-tier rates are subject to change; verify against the Coconut pricing
+  page during reconciliation. Cost is driven primarily by output count and
+  resolution, not source length alone.
+sources:
+- https://www.coconut.co/pricing
+- https://docs.coconut.co
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Coconut
+serviceCategory: Media and Content
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+focusColumns:
+  ServiceName: Coconut
+  ServiceCategory: Media and Content
+  ProviderName: Coconut
+  PublisherName: Coconut
+  InvoiceIssuerName: Coconut
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: audio_output_minutes
+  description: Audio output minutes produced, billed at $0.00325 per minute.
+  unit: output_minutes
+  aggregation: sum
+  dimensions:
+  - account
+  - job
+- name: sd_output_minutes
+  description: SD video output minutes produced, billed at $0.00750 per minute.
+  unit: output_minutes
+  aggregation: sum
+  dimensions:
+  - account
+  - job
+- name: hd_output_minutes
+  description: HD video output minutes produced, billed at $0.01500 per minute.
+  unit: output_minutes
+  aggregation: sum
+  dimensions:
+  - account
+  - job
+- name: uhd_output_minutes
+  description: UHD video output minutes produced, billed at $0.03000 per minute.
+  unit: output_minutes
+  aggregation: sum
+  dimensions:
+  - account
+  - job
+principles:
+- name: Visibility
+  description: Track output minutes by resolution tier; account for the multiplier of producing several renditions per source.
+- name: Allocation
+  description: Tag jobs or API keys per workload/team and map output minutes to internal cost centers.
+- name: Optimization
+  description: Produce only the renditions you need; prefer lower tiers where acceptable; rely on free thumbnail generation and unbilled failed jobs.
+- name: Accountability
+  description: Review monthly output-minute spend against budget and assign owners per project/key.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

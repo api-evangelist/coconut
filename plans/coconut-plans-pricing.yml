@@ -1,0 +1,110 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Coconut
+providerId: coconut
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Video
+- Audio
+- Encoding
+- Transcoding
+- Media
+- Plans
+description: >-
+  Coconut uses a usage-based, per-output-minute pricing model with no minimum
+  fees and no long-term commitments. Charges accrue on the number of output
+  minutes produced (the duration of each output file, summed across formats),
+  with rates that vary by output resolution tier (Audio, SD, HD, UHD). Billing
+  is monthly on the 1st for the previous month's volume. New accounts start on
+  a free Test Plan (no credit card) limited to media up to one minute with
+  sequential processing.
+notes: >-
+  Rates as published on the Coconut pricing page. Failed jobs, thumbnail
+  generation, and API calls are not billed. Verify current rates on the
+  pricing page during reconciliation.
+sources:
+- https://www.coconut.co/pricing
+- https://docs.coconut.co
+plans:
+- id: coconut-test
+  name: Test Plan
+  type: free
+  description: >-
+    Free plan applied automatically to new accounts. Encode video or audio up
+    to one minute in length with sequential (non-parallel) processing. No
+    credit card required.
+  entries:
+  - label: Test Encoding
+    name: test_encoding
+    type: limited
+    metric: output_minutes
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (media up to 1 minute, sequential processing)
+    userMultiplied: false
+  elements:
+  - name: Jobs
+  - name: Metadata
+  - name: Webhooks
+- id: coconut-pay-as-you-go
+  name: Pay-as-you-go
+  type: usage
+  description: >-
+    Usage-based plan billed per output minute by resolution tier, with no
+    minimum fee and no commitment. Output minutes equal the duration of each
+    output file summed across all formats produced.
+  entries:
+  - label: Audio
+    name: audio
+    type: usage
+    metric: output_minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00325 per output minute
+    userMultiplied: false
+  - label: SD
+    name: sd
+    type: usage
+    metric: output_minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00750 per output minute
+    userMultiplied: false
+  - label: HD
+    name: hd
+    type: usage
+    metric: output_minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.01500 per output minute
+    userMultiplied: false
+  - label: UHD
+    name: uhd
+    type: usage
+    metric: output_minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.03000 per output minute
+    userMultiplied: false
+  elements:
+  - name: Video Transcoding
+  - name: Audio Transcoding
+  - name: HLS / MPEG-DASH Packaging
+  - name: Thumbnails (not billed)
+  - name: GIF Animation
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
