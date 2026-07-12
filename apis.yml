@@ -90,6 +90,10 @@ apis:
     job.failed) to a caller-supplied URL, optionally including per-event and metadata
     detail.
 common:
+- type: DomainSecurity
+  url: security/coconut-domain-security.yml
+- type: Authentication
+  url: authentication/coconut-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/opencoconut
 - type: LinkedIn
@@ -104,6 +108,8 @@ common:
   url: rate-limits/coconut-rate-limits.yml
 - type: FinOps
   url: finops/coconut-finops.yml
+- type: Blog
+  url: https://www.coconut.co/articles
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/coconut-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic authentication. Use the API key as the username and leave the password
+    blank.
+  sources:
+  - openapi/coconut-openapi.yml
