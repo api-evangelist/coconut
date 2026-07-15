@@ -90,6 +90,8 @@ apis:
     job.failed) to a caller-supplied URL, optionally including per-event and metadata
     detail.
 common:
+- type: AgenticAccess
+  url: agentic-access/coconut-agentic-access.yml
 - type: DomainSecurity
   url: security/coconut-domain-security.yml
 - type: Authentication
