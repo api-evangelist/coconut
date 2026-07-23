@@ -1,0 +1,262 @@
+openapi: 3.0.1
+info:
+  title: Coconut Jobs API
+  description: The Coconut API v2 is a cloud video and audio encoding/transcoding service. A single asynchronous job transcodes a source media file into multiple output formats, packages adaptive HLS/MPEG-DASH streams, and generates thumbnails and GIF animations, delivering results to cloud storage and reporting progress through webhooks. Authentication is HTTP Basic with the API key as the username and a blank password.
+  termsOfService: https://www.coconut.co/terms
+  contact:
+    name: Coconut Support
+    email: team@coconut.co
+    url: https://docs.coconut.co
+  version: '2'
+servers:
+- url: https://api.coconut.co/v2
+  description: Default region (North Virginia, us-east-1)
+- url: https://api-us-west-2.coconut.co/v2
+  description: Oregon (us-west-2)
+- url: https://api-eu-west-1.coconut.co/v2
+  description: Ireland (eu-west-1)
+security:
+- basicAuth: []
+tags:
+- name: Jobs
+  description: Create and retrieve encoding jobs.
+paths:
+  /jobs:
+    post:
+      operationId: createJob
+      tags:
+      - Jobs
+      summary: Create a job
+      description: Submit a new encoding job. A single request defines the input source, storage destination, desired outputs, optional notification webhook, and optional settings (such as ultrafast parallel transcoding). The job runs asynchronously and progress is reported via the notification webhook when configured.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+      responses:
+        '201':
+          description: Job created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          description: Authentication failed (invalid API key).
+        '422':
+          description: Invalid job configuration.
+  /jobs/{jobId}:
+    get:
+      operationId: retrieveJob
+      tags:
+      - Jobs
+      summary: Retrieve a job
+      description: Retrieve a single job by its identifier, including overall status, progress, input status, and the status and URLs of each output.
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The identifier of the job.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Job retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          description: Authentication failed.
+        '404':
+          description: Job not found.
+components:
+  schemas:
+    Input:
+      type: object
+      description: The source media file to transcode.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Publicly reachable URL of the source media file.
+        service:
+          type: string
+          description: Cloud storage service when fetching the input from private storage.
+        bucket:
+          type: string
+        credentials:
+          $ref: '#/components/schemas/Credentials'
+    CreateJobRequest:
+      type: object
+      required:
+      - input
+      - storage
+      - outputs
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        storage:
+          $ref: '#/components/schemas/Storage'
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+        notification:
+          $ref: '#/components/schemas/Notification'
+        settings:
+          $ref: '#/components/schemas/Settings'
+    Output:
+      type: object
+      description: A single output definition.
+      properties:
+        path:
+          type: string
+          description: Destination path for this output file.
+        url:
+          type: string
+          format: uri
+          description: Direct destination URL (alternative to storage + path).
+        if:
+          type: string
+          description: Conditional expression controlling whether the output is produced.
+        number:
+          type: integer
+          description: Number of images to generate (image outputs only).
+    Outputs:
+      type: object
+      description: Map of output keys to output definitions. Keys identify the desired format and variant (for example "mp4:720p", "webm:480p", "httpstream", "jpg:300x", "gif:200x").
+      additionalProperties:
+        oneOf:
+        - $ref: '#/components/schemas/Output'
+        - type: array
+          items:
+            $ref: '#/components/schemas/Output'
+      example:
+        mp4:720p:
+          path: /transcoded/video_720p.mp4
+        jpg:300x:
+          path: /thumbs/thumb_#num#.jpg
+          number: 5
+    Job:
+      type: object
+      description: An encoding job.
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: Overall job status.
+          enum:
+          - job.starting
+          - job.completed
+          - job.failed
+          example: job.completed
+        progress:
+          type: string
+          example: 100%
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        input:
+          $ref: '#/components/schemas/InputStatus'
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputStatus'
+    Credentials:
+      type: object
+      description: Access credentials for the storage service.
+      properties:
+        access_key_id:
+          type: string
+        secret_access_key:
+          type: string
+    InputStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - input.starting
+          - input.transferring
+          - input.transferred
+          - input.failed
+    Notification:
+      type: object
+      description: Webhook configuration that receives job event callbacks.
+      properties:
+        type:
+          type: string
+          enum:
+          - http
+          description: Notification transport. Only "http" (webhook) is supported.
+        url:
+          type: string
+          format: uri
+          description: Endpoint that receives POST callbacks.
+        events:
+          type: boolean
+          default: false
+          description: When true, Coconut sends a callback for each event (input.transferred, output.completed, output.failed) in addition to the final job.completed/job.failed event.
+        metadata:
+          type: boolean
+          default: false
+          description: When true, callbacks include codec/stream metadata.
+    Storage:
+      type: object
+      description: Destination where output files are uploaded.
+      properties:
+        service:
+          type: string
+          description: Storage service (for example s3, gcs, dospaces, azure, backblaze, rackspace, sftp).
+          example: s3
+        region:
+          type: string
+          example: us-east-1
+        bucket:
+          type: string
+        path:
+          type: string
+          description: Destination path prefix within the bucket.
+        credentials:
+          $ref: '#/components/schemas/Credentials'
+    Settings:
+      type: object
+      description: Optional job-level settings.
+      properties:
+        ultrafast:
+          type: boolean
+          default: false
+          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
+    OutputStatus:
+      type: object
+      properties:
+        key:
+          type: string
+          example: mp4:720p
+        format:
+          type: string
+          example: mp4
+        type:
+          type: string
+          enum:
+          - video
+          - image
+          - httpstream
+          - audio
+        status:
+          type: string
+          description: Per-output status.
+          example: video.encoded
+        urls:
+          type: array
+          items:
+            type: string
+            format: uri
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Use the API key as the username and leave the password blank.

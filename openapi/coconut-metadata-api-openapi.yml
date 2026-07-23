@@ -1,0 +1,138 @@
+openapi: 3.0.1
+info:
+  title: Coconut Jobs Metadata API
+  description: The Coconut API v2 is a cloud video and audio encoding/transcoding service. A single asynchronous job transcodes a source media file into multiple output formats, packages adaptive HLS/MPEG-DASH streams, and generates thumbnails and GIF animations, delivering results to cloud storage and reporting progress through webhooks. Authentication is HTTP Basic with the API key as the username and a blank password.
+  termsOfService: https://www.coconut.co/terms
+  contact:
+    name: Coconut Support
+    email: team@coconut.co
+    url: https://docs.coconut.co
+  version: '2'
+servers:
+- url: https://api.coconut.co/v2
+  description: Default region (North Virginia, us-east-1)
+- url: https://api-us-west-2.coconut.co/v2
+  description: Oregon (us-west-2)
+- url: https://api-eu-west-1.coconut.co/v2
+  description: Ireland (eu-west-1)
+security:
+- basicAuth: []
+tags:
+- name: Metadata
+  description: Retrieve technical metadata for input and output files.
+paths:
+  /metadata/jobs/{jobId}:
+    get:
+      operationId: retrieveJobMetadata
+      tags:
+      - Metadata
+      summary: Retrieve all metadata for a job
+      description: Retrieve technical metadata (streams and format) for the input source and all output files of a job.
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The identifier of the job.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataResponse'
+        '401':
+          description: Authentication failed.
+        '404':
+          description: Job or metadata not found.
+  /metadata/jobs/{jobId}/{key}:
+    get:
+      operationId: retrieveOutputMetadata
+      tags:
+      - Metadata
+      summary: Retrieve metadata for a specific source or output key
+      description: Retrieve technical metadata for a single input source or output file identified by its key name.
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: The identifier of the job.
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        description: The source or output key name (for example "source" or "mp4:720p").
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metadata'
+        '401':
+          description: Authentication failed.
+        '404':
+          description: Key not found.
+components:
+  schemas:
+    Metadata:
+      type: object
+      description: Technical metadata for a single media file.
+      properties:
+        streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stream'
+        format:
+          $ref: '#/components/schemas/Format'
+    Stream:
+      type: object
+      properties:
+        codec_name:
+          type: string
+        codec_type:
+          type: string
+          enum:
+          - video
+          - audio
+        profile:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        bit_rate:
+          type: string
+        sample_rate:
+          type: string
+        channels:
+          type: integer
+    Format:
+      type: object
+      properties:
+        filename:
+          type: string
+        duration:
+          type: string
+        size:
+          type: string
+        bit_rate:
+          type: string
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+    MetadataResponse:
+      type: object
+      description: Metadata for the input source and every output of a job.
+      additionalProperties:
+        $ref: '#/components/schemas/Metadata'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Use the API key as the username and leave the password blank.
