@@ -7,7 +7,20 @@ description: Coconut is a cloud video and audio encoding/transcoding service. Th
   source media into multiple formats, packages adaptive HLS/MPEG-DASH streams, and
   generates thumbnails and GIF animations, delivering results to cloud storage and
   reporting progress through webhooks.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: open
+  trial: false
+  try_now: false
+  public: true
+  label: Paid · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/coconut.png
 tags:
 - Video
 - Audio
@@ -20,75 +33,56 @@ specificationVersion: '0.19'
 apis:
 - aid: coconut:coconut-jobs-api
   name: Coconut Jobs API
-  tags:
-  - Jobs
-  - Encoding
-  - Transcoding
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Create and retrieve encoding jobs.
   humanURL: https://docs.coconut.co/jobs/api
   baseURL: https://api.coconut.co/v2
+  tags:
+  - Jobs
   properties:
-  - url: https://docs.coconut.co/jobs/api
-    type: Documentation
-  - url: https://docs.coconut.co/jobs/api
-    type: APIReference
-  - url: openapi/coconut-openapi.yml
-    type: OpenAPI
-  - url: collections/coconut.postman_collection.json
-    type: PostmanCollection
-  - url: collections/coconut.opencollection.json
-    type: OpenCollection
-  description: Create an asynchronous encoding job with a single request - specify
-    an input source, storage destination, output formats (MP4, WebM, HLS, MPEG-DASH,
-    thumbnails, GIF), and a webhook notification - then retrieve the job and its
-    status and progress.
+  - type: OpenAPI
+    url: openapi/coconut-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.coconut.co/jobs/api
+  - type: APIReference
+    url: https://docs.coconut.co/jobs/api
+  - type: PostmanCollection
+    url: collections/coconut.postman_collection.json
+  - type: OpenCollection
+    url: collections/coconut.opencollection.json
+  - type: Documentation
+    url: https://docs.coconut.co/metadata/api
+  - type: APIReference
+    url: https://docs.coconut.co/metadata/api
+  - type: Documentation
+    url: https://docs.coconut.co/jobs/notification
+  - type: APIReference
+    url: https://docs.coconut.co/jobs/notification
 - aid: coconut:coconut-metadata-api
   name: Coconut Metadata API
+  description: Retrieve technical metadata for input and output files.
+  humanURL: https://docs.coconut.co/jobs/api
+  baseURL: https://api.coconut.co/v2
   tags:
   - Metadata
-  - Streams
-  - Probe
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.coconut.co/metadata/api
-  baseURL: https://api.coconut.co/v2
   properties:
-  - url: https://docs.coconut.co/metadata/api
-    type: Documentation
-  - url: https://docs.coconut.co/metadata/api
-    type: APIReference
-  - url: openapi/coconut-openapi.yml
-    type: OpenAPI
-  - url: collections/coconut.postman_collection.json
-    type: PostmanCollection
-  - url: collections/coconut.opencollection.json
-    type: OpenCollection
-  description: Retrieve technical metadata (codec, stream, and format details) for
-    the input source and output files of a completed job, for all keys or a specific
-    output key.
-- aid: coconut:coconut-webhooks-api
-  name: Coconut Webhooks API
-  tags:
-  - Webhooks
-  - Notifications
-  - Events
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.coconut.co/jobs/notification
-  baseURL: https://api.coconut.co/v2
-  properties:
-  - url: https://docs.coconut.co/jobs/notification
-    type: Documentation
-  - url: https://docs.coconut.co/jobs/notification
-    type: APIReference
-  - url: openapi/coconut-openapi.yml
-    type: OpenAPI
-  - url: collections/coconut.postman_collection.json
-    type: PostmanCollection
-  - url: collections/coconut.opencollection.json
-    type: OpenCollection
-  description: Configured per job via the notification object, Coconut POSTs JSON
-    event payloads (input.transferred, output.completed, output.failed, job.completed,
-    job.failed) to a caller-supplied URL, optionally including per-event and metadata
-    detail.
+  - type: OpenAPI
+    url: openapi/coconut-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.coconut.co/jobs/api
+  - type: APIReference
+    url: https://docs.coconut.co/jobs/api
+  - type: PostmanCollection
+    url: collections/coconut.postman_collection.json
+  - type: OpenCollection
+    url: collections/coconut.opencollection.json
+  - type: Documentation
+    url: https://docs.coconut.co/metadata/api
+  - type: APIReference
+    url: https://docs.coconut.co/metadata/api
+  - type: Documentation
+    url: https://docs.coconut.co/jobs/notification
+  - type: APIReference
+    url: https://docs.coconut.co/jobs/notification
 common:
 - type: AgenticAccess
   url: agentic-access/coconut-agentic-access.yml
