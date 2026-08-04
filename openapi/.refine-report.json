@@ -1,0 +1,16 @@
+{
+  "provider": "coconut",
+  "sources": [
+    "coconut-jobs-api-openapi.yml",
+    "coconut-metadata-api-openapi.yml"
+  ],
+  "outputs": [
+    "coconut-jobs-api-openapi.yml",
+    "coconut-metadata-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
