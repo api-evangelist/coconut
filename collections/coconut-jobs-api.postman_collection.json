@@ -1,0 +1,430 @@
+{
+  "item": [
+    {
+      "id": "d94b7810-a0eb-4f04-bbe4-607b3d291668",
+      "name": "Jobs",
+      "description": {
+        "content": "Create and retrieve encoding jobs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b011238-0d64-4f05-ad3c-0b93d8ec1b54",
+          "name": "Create a job",
+          "request": {
+            "name": "Create a job",
+            "description": {
+              "content": "Submit a new encoding job. A single request defines the input source, storage destination, desired outputs, optional notification webhook, and optional settings (such as ultrafast parallel transcoding). The job runs asynchronously and progress is reported via the notification webhook when configured.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": {\n    \"url\": \"<uri>\",\n    \"service\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"storage\": {\n    \"service\": \"<string>\",\n    \"region\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"path\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"outputs\": {\n    \"key_0\": {\n      \"path\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"if\": \"<string>\",\n      \"number\": \"<integer>\"\n    },\n    \"key_1\": {\n      \"path\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"if\": \"<string>\",\n      \"number\": \"<integer>\"\n    }\n  },\n  \"notification\": {\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"events\": false,\n    \"metadata\": false\n  },\n  \"settings\": {\n    \"ultrafast\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "285f3c20-636b-4597-baca-6cb418ddd2c8",
+              "name": "Job created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": {\n    \"url\": \"<uri>\",\n    \"service\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"storage\": {\n    \"service\": \"s3\",\n    \"region\": \"us-east-1\",\n    \"bucket\": \"<string>\",\n    \"path\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"outputs\": {\n    \"mp4:720p\": {\n      \"path\": \"/transcoded/video_720p.mp4\"\n    },\n    \"jpg:300x\": {\n      \"path\": \"/thumbs/thumb_#num#.jpg\",\n      \"number\": 5\n    }\n  },\n  \"notification\": {\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"events\": false,\n    \"metadata\": false\n  },\n  \"settings\": {\n    \"ultrafast\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"job.completed\",\n  \"progress\": \"100%\",\n  \"created_at\": \"1986-04-15T19:19:59.526Z\",\n  \"completed_at\": \"1959-03-18T09:38:44.624Z\",\n  \"input\": {\n    \"status\": \"input.failed\"\n  },\n  \"outputs\": [\n    {\n      \"key\": \"mp4:720p\",\n      \"format\": \"mp4\",\n      \"type\": \"httpstream\",\n      \"status\": \"video.encoded\",\n      \"urls\": [\n        \"https://nfmLPDsiMtBVQFuwDTKXHNNw.hjxB8lo7ht32ITPWi7tkIkD5zEKbbPOx\",\n        \"http://KoZLuBwiTZsDC.dgiFnf2A,uEc5Ez1ILNGSC9b5OOp1ux3Xh1sjpCHQ4jFKPY5-BfoB.jx,P25ofCV0PZ7z\"\n      ]\n    },\n    {\n      \"key\": \"mp4:720p\",\n      \"format\": \"mp4\",\n      \"type\": \"video\",\n      \"status\": \"video.encoded\",\n      \"urls\": [\n        \"https://clfKxCGZiojQjEoCNUGwwEuLB.bgiovqK1Cm52qILEgPpDbBiWVCR0YU7Kc.IvJOi.FGQpK6tBfkTAmgF\",\n        \"https://Kweo.eqmecaBa3vf15Z-SGW1P9FmaL8-gFgj,ELOzIEaNkWHAFZEuAHmqpfXYcQS1ySCXLm6Q94zcmE20NpTduRRuST\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dca09b25-ab64-4f4c-bb39-83a1efdec467",
+              "name": "Authentication failed (invalid API key).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": {\n    \"url\": \"<uri>\",\n    \"service\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"storage\": {\n    \"service\": \"s3\",\n    \"region\": \"us-east-1\",\n    \"bucket\": \"<string>\",\n    \"path\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"outputs\": {\n    \"mp4:720p\": {\n      \"path\": \"/transcoded/video_720p.mp4\"\n    },\n    \"jpg:300x\": {\n      \"path\": \"/thumbs/thumb_#num#.jpg\",\n      \"number\": 5\n    }\n  },\n  \"notification\": {\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"events\": false,\n    \"metadata\": false\n  },\n  \"settings\": {\n    \"ultrafast\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28ac0747-90b3-43d4-be62-6fc08c1d2027",
+              "name": "Invalid job configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": {\n    \"url\": \"<uri>\",\n    \"service\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"storage\": {\n    \"service\": \"s3\",\n    \"region\": \"us-east-1\",\n    \"bucket\": \"<string>\",\n    \"path\": \"<string>\",\n    \"credentials\": {\n      \"access_key_id\": \"<string>\",\n      \"secret_access_key\": \"<string>\"\n    }\n  },\n  \"outputs\": {\n    \"mp4:720p\": {\n      \"path\": \"/transcoded/video_720p.mp4\"\n    },\n    \"jpg:300x\": {\n      \"path\": \"/thumbs/thumb_#num#.jpg\",\n      \"number\": 5\n    }\n  },\n  \"notification\": {\n    \"type\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"events\": false,\n    \"metadata\": false\n  },\n  \"settings\": {\n    \"ultrafast\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8444cba4-9640-4798-8008-bc72a3968d7e",
+          "name": "Retrieve a job",
+          "request": {
+            "name": "Retrieve a job",
+            "description": {
+              "content": "Retrieve a single job by its identifier, including overall status, progress, input status, and the status and URLs of each output.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The identifier of the job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0499ad7-f2d6-4a50-8687-54ef31016a52",
+              "name": "Job retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"job.completed\",\n  \"progress\": \"100%\",\n  \"created_at\": \"2008-10-19T05:39:10.705Z\",\n  \"completed_at\": \"1981-02-10T15:37:13.027Z\",\n  \"input\": {\n    \"status\": \"input.failed\"\n  },\n  \"outputs\": [\n    {\n      \"key\": \"mp4:720p\",\n      \"format\": \"mp4\",\n      \"type\": \"audio\",\n      \"status\": \"video.encoded\",\n      \"urls\": [\n        \"http://mRlMLpFPIjEuHWjUrZbNocYRFmvRUYp.fyxaDczpTmUgB5vZaa4UJmGw87jbiVioeqjf3usmqFOPJxO0\",\n        \"http://m.ano+fuZU5ytFLXeXMNwPFxArRRJz\"\n      ]\n    },\n    {\n      \"key\": \"mp4:720p\",\n      \"format\": \"mp4\",\n      \"type\": \"video\",\n      \"status\": \"video.encoded\",\n      \"urls\": [\n        \"http://nQVxxysYxdpnhPvGsMJjtr.jqcdbsp.n25GI2piO,+MJGfYfWlvdH5CUrIxjnl\",\n        \"http://woTiPlHxbWXjLtDSqfiPTSNofJhrZURFz.sxycUdW48ROZ5eFtaof3SPvGsm4WlJIMMWSL\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3934b7ff-a6f2-469f-a3e9-3d1f6e181ff6",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d128224-abe5-4a21-9721-6c48eb117a62",
+              "name": "Job not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coconut.co/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "65edaa1d-0db0-4091-96e6-39e40e3f624f",
+    "name": "Coconut Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Coconut API v2 is a cloud video and audio encoding/transcoding service. A single asynchronous job transcodes a source media file into multiple output formats, packages adaptive HLS/MPEG-DASH streams, and generates thumbnails and GIF animations, delivering results to cloud storage and reporting progress through webhooks. Authentication is HTTP Basic with the API key as the username and a blank password.\n\nContact Support:\n Name: Coconut Support\n Email: team@coconut.co",
+      "type": "text/plain"
+    }
+  }
+}

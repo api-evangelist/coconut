@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coconut Jobs Metadata API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all metadata for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coconut.co/v2/metadata/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the job."
+              }
+            ]
+          },
+          "docs": "Retrieve technical metadata (streams and format) for the input source and all output files of a job."
+        },
+        {
+          "info": {
+            "name": "Retrieve metadata for a specific source or output key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coconut.co/v2/metadata/jobs/:jobId/:key",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the job."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The source or output key name (for example \"source\" or \"mp4:720p\")."
+              }
+            ]
+          },
+          "docs": "Retrieve technical metadata for a single input source or output file identified by its key name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coconut Jobs API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coconut.co/v2/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a new encoding job. A single request defines the input source, storage destination, desired outputs, optional notification webhook, and optional settings (such as ultrafast parallel transcoding). The job runs asynchronously and progress is reported via the notification webhook when configured."
+        },
+        {
+          "info": {
+            "name": "Retrieve a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coconut.co/v2/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the job."
+              }
+            ]
+          },
+          "docs": "Retrieve a single job by its identifier, including overall status, progress, input status, and the status and URLs of each output."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

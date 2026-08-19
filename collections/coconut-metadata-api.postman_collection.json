@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "218ad885-3ecf-4400-ab04-981451b6b456",
+      "name": "Metadata",
+      "description": {
+        "content": "Retrieve technical metadata for input and output files.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "553b0aea-573c-40cd-b459-62e45e5845ae",
+          "name": "Retrieve all metadata for a job",
+          "request": {
+            "name": "Retrieve all metadata for a job",
+            "description": {
+              "content": "Retrieve technical metadata (streams and format) for the input source and all output files of a job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metadata",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The identifier of the job."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "785213a5-14bb-41ea-b86c-0682606a23e4",
+              "name": "Metadata retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"streams\": [\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"audio\",\n        \"profile\": \"string\",\n        \"width\": 7141,\n        \"height\": 556,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 3830\n      },\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"audio\",\n        \"profile\": \"string\",\n        \"width\": 3063,\n        \"height\": 17,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 400\n      }\n    ],\n    \"format\": {\n      \"filename\": \"string\",\n      \"duration\": \"string\",\n      \"size\": \"string\",\n      \"bit_rate\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  },\n  \"key_1\": {\n    \"streams\": [\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"audio\",\n        \"profile\": \"string\",\n        \"width\": 3221,\n        \"height\": 610,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 5169\n      },\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"video\",\n        \"profile\": \"string\",\n        \"width\": 7541,\n        \"height\": 3797,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 1836\n      }\n    ],\n    \"format\": {\n      \"filename\": \"string\",\n      \"duration\": \"string\",\n      \"size\": \"string\",\n      \"bit_rate\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\"\n      }\n    }\n  },\n  \"key_2\": {\n    \"streams\": [\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"video\",\n        \"profile\": \"string\",\n        \"width\": 3919,\n        \"height\": 8677,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 1895\n      },\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"audio\",\n        \"profile\": \"string\",\n        \"width\": 5754,\n        \"height\": 7351,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 9981\n      }\n    ],\n    \"format\": {\n      \"filename\": \"string\",\n      \"duration\": \"string\",\n      \"size\": \"string\",\n      \"bit_rate\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\"\n      }\n    }\n  },\n  \"key_3\": {\n    \"streams\": [\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"video\",\n        \"profile\": \"string\",\n        \"width\": 3474,\n        \"height\": 2861,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 8765\n      },\n      {\n        \"codec_name\": \"string\",\n        \"codec_type\": \"video\",\n        \"profile\": \"string\",\n        \"width\": 9192,\n        \"height\": 8918,\n        \"bit_rate\": \"string\",\n        \"sample_rate\": \"string\",\n        \"channels\": 9669\n      }\n    ],\n    \"format\": {\n      \"filename\": \"string\",\n      \"duration\": \"string\",\n      \"size\": \"string\",\n      \"bit_rate\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d83ce50-145e-40ea-a232-0272e341f456",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eebd5f73-6b30-45bc-9f96-00c3927cb7f6",
+              "name": "Job or metadata not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f1cd9db-3876-46db-8e31-ca8cebabc6dc",
+          "name": "Retrieve metadata for a specific source or output key",
+          "request": {
+            "name": "Retrieve metadata for a specific source or output key",
+            "description": {
+              "content": "Retrieve technical metadata for a single input source or output file identified by its key name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metadata",
+                "jobs",
+                ":jobId",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The identifier of the job."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) The source or output key name (for example \"source\" or \"mp4:720p\")."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06142cb9-2489-46ff-8de9-7ffd72478f59",
+              "name": "Metadata retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "jobs",
+                    ":jobId",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) The source or output key name (for example \"source\" or \"mp4:720p\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"streams\": [\n    {\n      \"codec_name\": \"string\",\n      \"codec_type\": \"video\",\n      \"profile\": \"string\",\n      \"width\": 4276,\n      \"height\": 7034,\n      \"bit_rate\": \"string\",\n      \"sample_rate\": \"string\",\n      \"channels\": 7374\n    },\n    {\n      \"codec_name\": \"string\",\n      \"codec_type\": \"audio\",\n      \"profile\": \"string\",\n      \"width\": 7230,\n      \"height\": 6015,\n      \"bit_rate\": \"string\",\n      \"sample_rate\": \"string\",\n      \"channels\": 1409\n    }\n  ],\n  \"format\": {\n    \"filename\": \"string\",\n    \"duration\": \"string\",\n    \"size\": \"string\",\n    \"bit_rate\": \"string\",\n    \"tags\": {\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa6ccd74-a054-4a74-a79b-f72d06fe38b3",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "jobs",
+                    ":jobId",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) The source or output key name (for example \"source\" or \"mp4:720p\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35844e5d-9dd6-4ccd-ae07-675062c0c408",
+              "name": "Key not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "jobs",
+                    ":jobId",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The identifier of the job."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) The source or output key name (for example \"source\" or \"mp4:720p\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coconut.co/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a58f35fd-7c04-4dac-8d24-63a1bc1d19e7",
+    "name": "Coconut Jobs Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Coconut API v2 is a cloud video and audio encoding/transcoding service. A single asynchronous job transcodes a source media file into multiple output formats, packages adaptive HLS/MPEG-DASH streams, and generates thumbnails and GIF animations, delivering results to cloud storage and reporting progress through webhooks. Authentication is HTTP Basic with the API key as the username and a blank password.\n\nContact Support:\n Name: Coconut Support\n Email: team@coconut.co",
+      "type": "text/plain"
+    }
+  }
+}
