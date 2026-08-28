@@ -7,6 +7,18 @@ description: Coconut is a cloud video and audio encoding/transcoding service. Th
   source media into multiple formats, packages adaptive HLS/MPEG-DASH streams, and
   generates thumbnails and GIF animations, delivering results to cloud storage and
   reporting progress through webhooks.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: open
