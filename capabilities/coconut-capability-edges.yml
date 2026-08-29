@@ -1,0 +1,25 @@
+slug: coconut
+provider: Coconut
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Jobs
+  spec_file: coconut-jobs-api-openapi.yml
+  capability_id: BC-3710.40
+  capability_id_l1: BC-3710
+  capability_name: Transcoding & Format Conversion
+  confidence: 0.9
+  evidence: A single asynchronous job transcodes a source media file into multiple output formats, packages
+    adaptive HLS/MPEG-DASH streams
+  reason: Job creation/retrieval drives media transcoding and adaptive packaging — plainly Transcoding
+    & Format Conversion within media asset management.

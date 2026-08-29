@@ -98,6 +98,9 @@ apis:
   - type: APIReference
     url: https://docs.coconut.co/jobs/notification
 common:
+- type: CapabilityMap
+  url: capabilities/coconut-capability-edges.yml
+  name: Coconut Business Capability Map
 - type: AgenticAccess
   url: agentic-access/coconut-agentic-access.yml
 - type: DomainSecurity
