@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Coconut Jobs Metadata API
+  title: Coconut Metadata API
   description: The Coconut API v2 is a cloud video and audio encoding/transcoding service. A single asynchronous job transcodes a source media file into multiple output formats, packages adaptive HLS/MPEG-DASH streams, and generates thumbnails and GIF animations, delivering results to cloud storage and reporting progress through webhooks. Authentication is HTTP Basic with the API key as the username and a blank password.
   termsOfService: https://www.coconut.co/terms
   contact:
@@ -89,6 +89,11 @@ components:
             $ref: '#/components/schemas/Stream'
         format:
           $ref: '#/components/schemas/Format'
+    MetadataResponse:
+      type: object
+      description: Metadata for the input source and every output of a job.
+      additionalProperties:
+        $ref: '#/components/schemas/Metadata'
     Stream:
       type: object
       properties:
@@ -126,11 +131,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    MetadataResponse:
-      type: object
-      description: Metadata for the input source and every output of a job.
-      additionalProperties:
-        $ref: '#/components/schemas/Metadata'
   securitySchemes:
     basicAuth:
       type: http
