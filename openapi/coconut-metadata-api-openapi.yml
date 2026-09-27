@@ -79,16 +79,6 @@ paths:
           description: Key not found.
 components:
   schemas:
-    Metadata:
-      type: object
-      description: Technical metadata for a single media file.
-      properties:
-        streams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Stream'
-        format:
-          $ref: '#/components/schemas/Format'
     MetadataResponse:
       type: object
       description: Metadata for the input source and every output of a job.
@@ -131,6 +121,16 @@ components:
           type: object
           additionalProperties:
             type: string
+    Metadata:
+      type: object
+      description: Technical metadata for a single media file.
+      properties:
+        streams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stream'
+        format:
+          $ref: '#/components/schemas/Format'
   securitySchemes:
     basicAuth:
       type: http

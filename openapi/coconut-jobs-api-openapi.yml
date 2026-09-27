@@ -72,6 +72,95 @@ paths:
           description: Job not found.
 components:
   schemas:
+    InputStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - input.starting
+          - input.transferring
+          - input.transferred
+          - input.failed
+    Credentials:
+      type: object
+      description: Access credentials for the storage service.
+      properties:
+        access_key_id:
+          type: string
+        secret_access_key:
+          type: string
+    CreateJobRequest:
+      type: object
+      required:
+      - input
+      - storage
+      - outputs
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        storage:
+          $ref: '#/components/schemas/Storage'
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+        notification:
+          $ref: '#/components/schemas/Notification'
+        settings:
+          $ref: '#/components/schemas/Settings'
+    Settings:
+      type: object
+      description: Optional job-level settings.
+      properties:
+        ultrafast:
+          type: boolean
+          default: false
+          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
+    Job:
+      type: object
+      description: An encoding job.
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          description: Overall job status.
+          enum:
+          - job.starting
+          - job.completed
+          - job.failed
+          example: job.completed
+        progress:
+          type: string
+          example: 100%
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        input:
+          $ref: '#/components/schemas/InputStatus'
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputStatus'
+    Output:
+      type: object
+      description: A single output definition.
+      properties:
+        path:
+          type: string
+          description: Destination path for this output file.
+        url:
+          type: string
+          format: uri
+          description: Direct destination URL (alternative to storage + path).
+        if:
+          type: string
+          description: Conditional expression controlling whether the output is produced.
+        number:
+          type: integer
+          description: Number of images to generate (image outputs only).
     Notification:
       type: object
       description: Webhook configuration that receives job event callbacks.
@@ -118,14 +207,24 @@ components:
           items:
             type: string
             format: uri
-    Credentials:
+    Storage:
       type: object
-      description: Access credentials for the storage service.
+      description: Destination where output files are uploaded.
       properties:
-        access_key_id:
+        service:
           type: string
-        secret_access_key:
+          description: Storage service (for example s3, gcs, dospaces, azure, backblaze, rackspace, sftp).
+          example: s3
+        region:
           type: string
+          example: us-east-1
+        bucket:
+          type: string
+        path:
+          type: string
+          description: Destination path prefix within the bucket.
+        credentials:
+          $ref: '#/components/schemas/Credentials'
     Input:
       type: object
       description: The source media file to transcode.
@@ -156,105 +255,6 @@ components:
         jpg:300x:
           path: /thumbs/thumb_#num#.jpg
           number: 5
-    InputStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - input.starting
-          - input.transferring
-          - input.transferred
-          - input.failed
-    Job:
-      type: object
-      description: An encoding job.
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          description: Overall job status.
-          enum:
-          - job.starting
-          - job.completed
-          - job.failed
-          example: job.completed
-        progress:
-          type: string
-          example: 100%
-        created_at:
-          type: string
-          format: date-time
-        completed_at:
-          type: string
-          format: date-time
-        input:
-          $ref: '#/components/schemas/InputStatus'
-        outputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/OutputStatus'
-    Storage:
-      type: object
-      description: Destination where output files are uploaded.
-      properties:
-        service:
-          type: string
-          description: Storage service (for example s3, gcs, dospaces, azure, backblaze, rackspace, sftp).
-          example: s3
-        region:
-          type: string
-          example: us-east-1
-        bucket:
-          type: string
-        path:
-          type: string
-          description: Destination path prefix within the bucket.
-        credentials:
-          $ref: '#/components/schemas/Credentials'
-    Output:
-      type: object
-      description: A single output definition.
-      properties:
-        path:
-          type: string
-          description: Destination path for this output file.
-        url:
-          type: string
-          format: uri
-          description: Direct destination URL (alternative to storage + path).
-        if:
-          type: string
-          description: Conditional expression controlling whether the output is produced.
-        number:
-          type: integer
-          description: Number of images to generate (image outputs only).
-    Settings:
-      type: object
-      description: Optional job-level settings.
-      properties:
-        ultrafast:
-          type: boolean
-          default: false
-          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
-    CreateJobRequest:
-      type: object
-      required:
-      - input
-      - storage
-      - outputs
-      properties:
-        input:
-          $ref: '#/components/schemas/Input'
-        storage:
-          $ref: '#/components/schemas/Storage'
-        outputs:
-          $ref: '#/components/schemas/Outputs'
-        notification:
-          $ref: '#/components/schemas/Notification'
-        settings:
-          $ref: '#/components/schemas/Settings'
   securitySchemes:
     basicAuth:
       type: http
