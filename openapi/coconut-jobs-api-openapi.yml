@@ -82,14 +82,6 @@ components:
           - input.transferring
           - input.transferred
           - input.failed
-    Credentials:
-      type: object
-      description: Access credentials for the storage service.
-      properties:
-        access_key_id:
-          type: string
-        secret_access_key:
-          type: string
     CreateJobRequest:
       type: object
       required:
@@ -107,14 +99,6 @@ components:
           $ref: '#/components/schemas/Notification'
         settings:
           $ref: '#/components/schemas/Settings'
-    Settings:
-      type: object
-      description: Optional job-level settings.
-      properties:
-        ultrafast:
-          type: boolean
-          default: false
-          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
     Job:
       type: object
       description: An encoding job.
@@ -144,44 +128,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OutputStatus'
-    Output:
-      type: object
-      description: A single output definition.
-      properties:
-        path:
-          type: string
-          description: Destination path for this output file.
-        url:
-          type: string
-          format: uri
-          description: Direct destination URL (alternative to storage + path).
-        if:
-          type: string
-          description: Conditional expression controlling whether the output is produced.
-        number:
-          type: integer
-          description: Number of images to generate (image outputs only).
-    Notification:
-      type: object
-      description: Webhook configuration that receives job event callbacks.
-      properties:
-        type:
-          type: string
-          enum:
-          - http
-          description: Notification transport. Only "http" (webhook) is supported.
-        url:
-          type: string
-          format: uri
-          description: Endpoint that receives POST callbacks.
-        events:
-          type: boolean
-          default: false
-          description: When true, Coconut sends a callback for each event (input.transferred, output.completed, output.failed) in addition to the final job.completed/job.failed event.
-        metadata:
-          type: boolean
-          default: false
-          description: When true, callbacks include codec/stream metadata.
     OutputStatus:
       type: object
       properties:
@@ -207,6 +153,82 @@ components:
           items:
             type: string
             format: uri
+    Input:
+      type: object
+      description: The source media file to transcode.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Publicly reachable URL of the source media file.
+        service:
+          type: string
+          description: Cloud storage service when fetching the input from private storage.
+        bucket:
+          type: string
+        credentials:
+          $ref: '#/components/schemas/Credentials'
+    Notification:
+      type: object
+      description: Webhook configuration that receives job event callbacks.
+      properties:
+        type:
+          type: string
+          enum:
+          - http
+          description: Notification transport. Only "http" (webhook) is supported.
+        url:
+          type: string
+          format: uri
+          description: Endpoint that receives POST callbacks.
+        events:
+          type: boolean
+          default: false
+          description: When true, Coconut sends a callback for each event (input.transferred, output.completed, output.failed) in addition to the final job.completed/job.failed event.
+        metadata:
+          type: boolean
+          default: false
+          description: When true, callbacks include codec/stream metadata.
+    Outputs:
+      type: object
+      description: Map of output keys to output definitions. Keys identify the desired format and variant (for example "mp4:720p", "webm:480p", "httpstream", "jpg:300x", "gif:200x").
+      additionalProperties:
+        oneOf:
+        - $ref: '#/components/schemas/Output'
+        - type: array
+          items:
+            $ref: '#/components/schemas/Output'
+      example:
+        mp4:720p:
+          path: /transcoded/video_720p.mp4
+        jpg:300x:
+          path: /thumbs/thumb_#num#.jpg
+          number: 5
+    Settings:
+      type: object
+      description: Optional job-level settings.
+      properties:
+        ultrafast:
+          type: boolean
+          default: false
+          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
+    Output:
+      type: object
+      description: A single output definition.
+      properties:
+        path:
+          type: string
+          description: Destination path for this output file.
+        url:
+          type: string
+          format: uri
+          description: Direct destination URL (alternative to storage + path).
+        if:
+          type: string
+          description: Conditional expression controlling whether the output is produced.
+        number:
+          type: integer
+          description: Number of images to generate (image outputs only).
     Storage:
       type: object
       description: Destination where output files are uploaded.
@@ -225,36 +247,14 @@ components:
           description: Destination path prefix within the bucket.
         credentials:
           $ref: '#/components/schemas/Credentials'
-    Input:
+    Credentials:
       type: object
-      description: The source media file to transcode.
+      description: Access credentials for the storage service.
       properties:
-        url:
+        access_key_id:
           type: string
-          format: uri
-          description: Publicly reachable URL of the source media file.
-        service:
+        secret_access_key:
           type: string
-          description: Cloud storage service when fetching the input from private storage.
-        bucket:
-          type: string
-        credentials:
-          $ref: '#/components/schemas/Credentials'
-    Outputs:
-      type: object
-      description: Map of output keys to output definitions. Keys identify the desired format and variant (for example "mp4:720p", "webm:480p", "httpstream", "jpg:300x", "gif:200x").
-      additionalProperties:
-        oneOf:
-        - $ref: '#/components/schemas/Output'
-        - type: array
-          items:
-            $ref: '#/components/schemas/Output'
-      example:
-        mp4:720p:
-          path: /transcoded/video_720p.mp4
-        jpg:300x:
-          path: /thumbs/thumb_#num#.jpg
-          number: 5
   securitySchemes:
     basicAuth:
       type: http
