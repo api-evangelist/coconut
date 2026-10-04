@@ -72,16 +72,6 @@ paths:
           description: Job not found.
 components:
   schemas:
-    InputStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - input.starting
-          - input.transferring
-          - input.transferred
-          - input.failed
     CreateJobRequest:
       type: object
       required:
@@ -128,31 +118,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OutputStatus'
-    OutputStatus:
-      type: object
-      properties:
-        key:
-          type: string
-          example: mp4:720p
-        format:
-          type: string
-          example: mp4
-        type:
-          type: string
-          enum:
-          - video
-          - image
-          - httpstream
-          - audio
-        status:
-          type: string
-          description: Per-output status.
-          example: video.encoded
-        urls:
-          type: array
-          items:
-            type: string
-            format: uri
     Input:
       type: object
       description: The source media file to transcode.
@@ -168,67 +133,6 @@ components:
           type: string
         credentials:
           $ref: '#/components/schemas/Credentials'
-    Notification:
-      type: object
-      description: Webhook configuration that receives job event callbacks.
-      properties:
-        type:
-          type: string
-          enum:
-          - http
-          description: Notification transport. Only "http" (webhook) is supported.
-        url:
-          type: string
-          format: uri
-          description: Endpoint that receives POST callbacks.
-        events:
-          type: boolean
-          default: false
-          description: When true, Coconut sends a callback for each event (input.transferred, output.completed, output.failed) in addition to the final job.completed/job.failed event.
-        metadata:
-          type: boolean
-          default: false
-          description: When true, callbacks include codec/stream metadata.
-    Outputs:
-      type: object
-      description: Map of output keys to output definitions. Keys identify the desired format and variant (for example "mp4:720p", "webm:480p", "httpstream", "jpg:300x", "gif:200x").
-      additionalProperties:
-        oneOf:
-        - $ref: '#/components/schemas/Output'
-        - type: array
-          items:
-            $ref: '#/components/schemas/Output'
-      example:
-        mp4:720p:
-          path: /transcoded/video_720p.mp4
-        jpg:300x:
-          path: /thumbs/thumb_#num#.jpg
-          number: 5
-    Settings:
-      type: object
-      description: Optional job-level settings.
-      properties:
-        ultrafast:
-          type: boolean
-          default: false
-          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
-    Output:
-      type: object
-      description: A single output definition.
-      properties:
-        path:
-          type: string
-          description: Destination path for this output file.
-        url:
-          type: string
-          format: uri
-          description: Direct destination URL (alternative to storage + path).
-        if:
-          type: string
-          description: Conditional expression controlling whether the output is produced.
-        number:
-          type: integer
-          description: Number of images to generate (image outputs only).
     Storage:
       type: object
       description: Destination where output files are uploaded.
@@ -255,6 +159,102 @@ components:
           type: string
         secret_access_key:
           type: string
+    Outputs:
+      type: object
+      description: Map of output keys to output definitions. Keys identify the desired format and variant (for example "mp4:720p", "webm:480p", "httpstream", "jpg:300x", "gif:200x").
+      additionalProperties:
+        oneOf:
+        - $ref: '#/components/schemas/Output'
+        - type: array
+          items:
+            $ref: '#/components/schemas/Output'
+      example:
+        mp4:720p:
+          path: /transcoded/video_720p.mp4
+        jpg:300x:
+          path: /thumbs/thumb_#num#.jpg
+          number: 5
+    InputStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - input.starting
+          - input.transferring
+          - input.transferred
+          - input.failed
+    OutputStatus:
+      type: object
+      properties:
+        key:
+          type: string
+          example: mp4:720p
+        format:
+          type: string
+          example: mp4
+        type:
+          type: string
+          enum:
+          - video
+          - image
+          - httpstream
+          - audio
+        status:
+          type: string
+          description: Per-output status.
+          example: video.encoded
+        urls:
+          type: array
+          items:
+            type: string
+            format: uri
+    Notification:
+      type: object
+      description: Webhook configuration that receives job event callbacks.
+      properties:
+        type:
+          type: string
+          enum:
+          - http
+          description: Notification transport. Only "http" (webhook) is supported.
+        url:
+          type: string
+          format: uri
+          description: Endpoint that receives POST callbacks.
+        events:
+          type: boolean
+          default: false
+          description: When true, Coconut sends a callback for each event (input.transferred, output.completed, output.failed) in addition to the final job.completed/job.failed event.
+        metadata:
+          type: boolean
+          default: false
+          description: When true, callbacks include codec/stream metadata.
+    Settings:
+      type: object
+      description: Optional job-level settings.
+      properties:
+        ultrafast:
+          type: boolean
+          default: false
+          description: Split the input into chunks for parallel transcoding (recommended for 1080p/4K and HEVC; applies to videos longer than one minute).
+    Output:
+      type: object
+      description: A single output definition.
+      properties:
+        path:
+          type: string
+          description: Destination path for this output file.
+        url:
+          type: string
+          format: uri
+          description: Direct destination URL (alternative to storage + path).
+        if:
+          type: string
+          description: Conditional expression controlling whether the output is produced.
+        number:
+          type: integer
+          description: Number of images to generate (image outputs only).
   securitySchemes:
     basicAuth:
       type: http
