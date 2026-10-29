@@ -1,4 +1,4 @@
-# Coconut (coconut)
+# Coconut
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,97 +66,118 @@
 
 Coconut is a cloud video and audio encoding/transcoding service. The Coconut API v2 lets developers submit a single asynchronous job that transcodes source media into multiple formats, packages adaptive HLS/MPEG-DASH streams, and generates thumbnails and GIF animations, delivering results to cloud storage and reporting progress through webhooks.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/coconut/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/coconut/refs/heads/main/apis.yml)
+**Areas:** Video · Audio · Encoding · Transcoding · Media
 
-## Tags
+## Coconut on APIs.io
 
-- Video
-- Audio
-- Encoding
-- Transcoding
-- Media
+Everything profiled for Coconut is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/coconut/](https://apis.io/providers/coconut/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (2)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Coconut Jobs API](https://apis.io/apis/coconut/coconut-jobs-api/) — Create and retrieve encoding jobs.
+- [Coconut Metadata API](https://apis.io/apis/coconut/coconut-metadata-api/) — Retrieve technical metadata for input and output files.
 
-## APIs
+### Published properties
 
-### Coconut Jobs API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create an asynchronous encoding job with a single request - specify an input source, storage destination, output formats (MP4, WebM, HLS, MPEG-DASH, thumbnails, GIF), and a webhook notification - then retrieve the job and its status and progress.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.coconut.co/jobs/api](https://docs.coconut.co/jobs/api)
-- **Base URL:** `https://api.coconut.co/v2`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Coconut Agentic Access](https://apis.io/agentic-access/coconut/coconut-agentic-access/)
 
-- Jobs
-- Encoding
-- Transcoding
+#### Collections (3)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.coconut.co/jobs/api)
-- [API Reference](https://docs.coconut.co/jobs/api)
-- [OpenAPI](openapi/coconut-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/coconut.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/coconut.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Coconut API](https://apis.io/collections/coconut/open-coconut/)
+- [Coconut Jobs API](https://apis.io/collections/coconut/open-coconut-jobs-api/)
+- [Coconut Jobs Metadata API](https://apis.io/collections/coconut/open-coconut-metadata-api/)
 
-### Coconut Metadata API
+#### Security (2)
 
-Retrieve technical metadata (codec, stream, and format details) for the input source and output files of a completed job, for all keys or a specific output key.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.coconut.co/metadata/api](https://docs.coconut.co/metadata/api)
-- **Base URL:** `https://api.coconut.co/v2`
+- [Coconut Authentication](https://apis.io/security/coconut/coconut-authentication/)
+- [Coconut Domain Security](https://apis.io/security/coconut/coconut-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Metadata
-- Streams
-- Probe
+Published plans, tiers and prices.
 
-#### Properties
+- [Coconut Plans Pricing](https://apis.io/plans/coconut/coconut-plans-pricing/)
 
-- [Documentation](https://docs.coconut.co/metadata/api)
-- [API Reference](https://docs.coconut.co/metadata/api)
-- [OpenAPI](openapi/coconut-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/coconut.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/coconut.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Coconut Webhooks API
+Published request limits.
 
-Configured per job via the notification object, Coconut POSTs JSON event payloads (input.transferred, output.completed, output.failed, job.completed, job.failed) to a caller-supplied URL, optionally including per-event and metadata detail.
+- [Coconut Rate Limits](https://apis.io/rate-limits/coconut/coconut-rate-limits/)
 
-- **Human URL:** [https://docs.coconut.co/jobs/notification](https://docs.coconut.co/jobs/notification)
-- **Base URL:** `https://api.coconut.co/v2`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Webhooks
-- Notifications
-- Events
+- [Coconut Finops](https://apis.io/finops/coconut/coconut-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.coconut.co/jobs/notification)
-- [API Reference](https://docs.coconut.co/jobs/notification)
-- [OpenAPI](openapi/coconut-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/coconut.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/coconut.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [GitHub Organization](https://github.com/opencoconut)
-- [LinkedIn](https://www.linkedin.com/company/coconut-co)
 - [Website](https://www.coconut.co)
 - [Documentation](https://docs.coconut.co)
-- [Plans](plans/coconut-plans-pricing.yml)
-- [Rate Limits](rate-limits/coconut-rate-limits.yml)
-- [Fin Ops](finops/coconut-finops.yml)
+- [Blog](https://www.coconut.co/articles)
+- [GitHub](https://github.com/opencoconut)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 51.1 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 5.3 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/coconut/](https://apis.io/providers/coconut/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Coconut: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/coconut/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
